@@ -1,0 +1,24 @@
+In this file I will explain in detail the diagram hosted on imgur LAMP stack: https://imgur.com/gallery/pUUlyJ9
+
+1. The user makes a request by entering the URL www.foobar.com in their browser
+2. The DNS (domain name system) uses the A address and mataches it to the IP address
+3. The browser send a HTTP request to the web server
+4. The webserver processes the request to the determine whether it is static or dynamic
+
+if static:
+The file only contains html, css, javascript, images. The websever respond to the user's browser by HTTP
+
+If dynamic:
+The file contains PHP or python and the webserver routes the file to application server. The application server executes the server side code which may involve interacting with a database. Note that only the application server can send and receive requests from the database server. This allows the dynamics content to use saved data as and when requried or save data from the application to the database. The application server generates dynamic content and sends it back to the webserver. the webserver responds to the user's browser by HTTP
+
+Additional information:
+A server is a computer that services, resources or functionality to other computers. This usually takes place over a network but can be local. This means a server can be either physical or virutal. Servers are often located in datacentres for security, environmental, maintenence, backup and revcovery purposes.
+
+In the LAMP stack model Linux OS is run on the server hardware. It it also used for apache webserver, Mysql database, PHP programming language.
+
+This stack has single points of failure because is any of these components fail, the entire system will fail. There are no back ups. The single points of failure could be: server hardware, internet connection, database, etc.
+
+If the code needed to be updated the website would be temporarily down as there a multiple single point failures and no redundancy. (backups to keep the website running while the code is updated)
+
+This model can not scale if the capacity exceeds the servers limits. This because is can not scale horizontally becuase there are no load balancers. It can be scaled vertically but this has its own limits. 
+
