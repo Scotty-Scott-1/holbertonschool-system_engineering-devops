@@ -1,0 +1,22 @@
+In this file I will explain in detail the diagram hosted on imgur distributed stack: https://imgur.com/gallery/uVDwZWc
+
+This model builds upon the previous simple stack.
+An extra server which contains the the infrastructure as the simple stack has been added. In addition a load balancer has been added.
+
+Loadbalancer: HAproxy is software that distributes traffic to two or more servers. The algorithm that it uses in distribution can be configured by the user.
+
+Two types of configuration are active-active and active-passive. In the first all servers are active and handle requests according to the alogorithm and in active passive, one server handles requests while the other is on standby.
+
+In the case of this stack I will use the active_active protocol with the least connections algorithm. This means that both servers are handling requests and the themost recent request is sent to the server with the least connections. This helps to improve performance responce times.
+
+This model uses a primary - replica / master - slave protocol for the database servers. The primary server receives all wrtie operations and then the replica recieves and replicates data from the primary. Replication can be synchronous or asynchronous. Replicas can only read. In a failover the replica can be promoted to the primary for reduncancy
+
+In this model the single point of failure is with the load balancer. If there are issues with it the two servers are not accessible even if they both functional. To resolve this mutliple load balancers can deployed in active-passive mode, where the passive can become active if the active fails.
+
+There is no security in this model: firewall and HTTPS.
+
+Firewalls monitor incoming and outgoing traffic. Without one the model is vulnerble to network based attacks, port scanning and unauthorised access.
+
+HTTPS ensures that exchanges between the browser and webserver are encrypted. Without this the data is vulnerable to man in th middle attcks, evesdropping and interception.
+
+There is no application or server monitoring, which means that one can not review the performance, availability, security, events, and capacity.
