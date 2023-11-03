@@ -1,0 +1,17 @@
+In this file I will explain in detail a monitored and secured model as shown here: https://imgur.com/gallery/nGXWtZh
+
+The first change is that three firewalls have been added before each of the three servers. The purpose is to filter network incoming and outgoing traffic according to its configuration. This protects the servers from unauthorised access, malicious activities and and network threats.
+
+Three monitoring clinets have also been added on outside of the firewall of each server. This is to monitor health, staus and performance of the server. Monitoring clinets can include alerts for when a certain metric exceeds a value such too many queries per second. The placement of the monitoring client also provides an extra layer of protection as it can have security features that block malicious traffic before it reaches the firewall. Monitoring tools can collect data using syslog and event logs from various sources. Other methods are: APIs, SNMP and packet capture.
+
+Related tho last point, in this model QPS in webserver need to be monitored. The Nginx webserver can generate access logs that record each request to the server. The websever can forward these logs to the monitoring tool which can apply analytics and visualisation.
+
+An SSL certiciate has been added before the load balancer. This is issued by a trusted certificate authority and allows traffic to be served by HTTPS. When a browser visits the website they exchange public keys to create a secure connection. The packets sent and received are encrypted and can only be read using the private keys.
+
+Terminating the SSL at the load balancer can cause some issues. Loss of end to end encyrption: The traffic between the browser and load balancer is encrypted and but from the load balncer to the server is not. This could be seen as a risk where all traffic must be encrypted. Increased load on the load balancer: It uses more recourced in encrpyting and decrypting which could cause issues.
+
+Having one MySQL server capable of accepting writes is a single point of failure. If the server encounters a problem It can lead to data loss and down time as no other database servers can write to the database.
+
+Having three servers with the same components (webserver, database and application server) can have drawbacks. Scalability: as the website grows the different componets need to be scaled according the requirements. Scaling all three servers identically can lead to wasted resources and can be expensive. Lack of redundancy: Using uniform servers can lead to single point of failures. Maintenance: if a component needs to be repaired the entire server experiences down time. The load balance is a good fix for these issues and prevent one server from becoming a bottle neck.
+
+As stated in the previous model, one load balancer is a single point of failure because no requests can be sent if it experiences down time.
