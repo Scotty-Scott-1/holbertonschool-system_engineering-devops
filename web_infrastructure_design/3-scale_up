@@ -1,0 +1,9 @@
+This model as shown here: https://imgur.com/gallery/QQFRy86
+
+I have separted the web server, database server, applicaion server and codebase. The reason for this is scalability. For example if an addional webserver needs to be added, one can a add more without affecting any other component. This is in preparation for increased traffic. This also streamlines development as devs can work on front end, back end and database independantly.
+
+Also in preparation for increased traffic I have added a server with two load balancers configured as a cluster (aslo known a high availability cluster). The cluster share a single VIP address. If any configuration changes are made the, the entire cluster be configured allowing for consistant behaviour. If one of the load balancers fails the other takes over as a redundancy measure.
+
+Firewalls and monitoring tools have been added between the webserver and application server, and, between the application server and database server. This ensure that only authorised requests can be made and adds an extra layer of security.
+
+
